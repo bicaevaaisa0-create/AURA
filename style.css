@@ -1,0 +1,289 @@
+/* === ОБЩИЕ СТИЛИ === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ссылки */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Навигация */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 50px;
+    align-items: center;
+}
+
+.logo a {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    letter-spacing: 5px;
+    color: #d4af37;
+}
+
+.menu a {
+    margin-left: 30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.menu a:hover, .menu a.active {
+    opacity: 1;
+    color: #d4af37;
+}
+
+/* Контейнеры */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Важно для главной */
+}
+
+.page-container {
+    padding: 50px;
+    text-align: center;
+    flex: 1;
+}
+
+/* Заголовки */
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    
+    background: linear-gradient(45deg, #ffffff, #999999);
+    
+    /* Эти строки ОБЯЗАТЕЛЬНЫ для градиентного текста в Chrome/Safari */
+    -webkit-background-clip: text; 
+    background-clip: text; /* Оставляем для стандартизации */
+    -webkit-text-fill-color: transparent;
+    
+    /* text-fill-color: transparent; <--- Эту строку удалили */
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+/* === ГЛАВНАЯ СТРАНИЦА (Visualizer) === */
+.visualizer-box {
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* Кнопки */
+.record-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 15px 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    outline: none;
+    margin-top: 20px;
+}
+
+.record-btn:hover {
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.record-btn.recording {
+    background: #ff3b3b;
+    border-color: #ff3b3b;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 59, 59, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0); }
+}
+
+/* Результат (Кольцо на главной) */
+.ring-preview {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    animation: fadeIn 2s ease forwards;
+}
+
+.ring-circle {
+    width: 150px;
+    height: 150px;
+    border: 4px solid #d4af37;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.2);
+    margin-bottom: 20px;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='wavy'><feTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' result='noise'/><feDisplacementMap in='SourceGraphic' in2='noise' scale='10' /></filter></svg>#wavy");
+}
+
+.buy-btn, .buy-small {
+    background: #ffffff;
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.buy-small:hover {
+    background: #d4af37;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* === СТРАНИЦА КОЛЛЕКЦИИ === */
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.card {
+    background: #111;
+    border: 1px solid #333;
+    padding: 20px;
+    width: 250px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #d4af37;
+    transform: translateY(-10px);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    background: #222;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Имитация разных колец через CSS градиенты (чтобы без картинок) */
+.ring-1::after {
+    content: ''; position: absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width: 100px; height: 100px; border: 2px solid #d4af37; border-radius: 50%;
+    box-shadow: 0 0 10px #d4af37;
+}
+.ring-2::after {
+    content: ''; position: absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width: 100px; height: 100px; border: 5px double #c0c0c0; border-radius: 50%;
+}
+.ring-3::after {
+    content: ''; position: absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+    width: 80px; height: 80px; border: 3px dashed #d4af37; border-radius: 50%;
+}
+
+.card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.price {
+    color: #d4af37;
+    margin-bottom: 15px;
+}
+
+/* === СТРАНИЦА ИСТОРИЯ === */
+.text-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-content {
+    max-width: 600px;
+    line-height: 1.8;
+    text-align: left;
+}
+.text-content p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+.signature {
+    margin-top: 50px;
+    font-family: 'Cinzel', serif;
+    text-align: right;
+    color: #d4af37;
+    font-style: italic;
+}
+
+/* === СТРАНИЦА ВХОД === */
+.login-box {
+    background: #111;
+    padding: 50px;
+    border: 1px solid #333;
+    width: 400px;
+    margin: 0 auto;
+}
+.login-box input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #000;
+    border: 1px solid #333;
+    color: white;
+    outline: none;
+}
+.login-box input:focus {
+    border-color: #d4af37;
+}
